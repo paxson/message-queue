@@ -1,4 +1,4 @@
-module message-queue
+module github.com/paxson/message-queue
 
 go 1.19
 
