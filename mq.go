@@ -19,6 +19,8 @@ func (mq *MessageQueue) Connect(url string) error {
 		return err
 	}
 	mq.conn = nc
+	var i int
+	i++
 	return nil
 }
 
