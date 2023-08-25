@@ -1,11 +1,10 @@
 package main
 
 import (
-	"github.com/paxson/message-queue/mq"
+	"github.com/paxson/messagequeue"
 )
 
 func main() {
-	var mq mq.MessageQueue
-	mq = mq.NewMessageQueue()
+	mq := messagequeue.NewMessageQueue()
 	mq.Connect("nats://localhost:4222")
 }

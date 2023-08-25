@@ -19,8 +19,6 @@ func (mq *MessageQueue) Connect(url string) error {
 		return err
 	}
 	mq.conn = nc
-	var i int
-	i++
 	return nil
 }
 
@@ -32,6 +30,14 @@ func (mq *MessageQueue) Publish(topic string, data []byte) error {
 // Subscribe 订阅指定主题的消息
 func (mq *MessageQueue) Subscribe(topic string, handler func(data []byte)) error {
 	_, err := mq.conn.Subscribe(topic, func(msg *nats.Msg) {
+		handler(msg.Data)
+	})
+	return err
+}
+
+// SubscribeToQueue 订阅工作队列的消息
+func (mq *MessageQueue) SubscribeToQueue(queueName string, handler func(data []byte)) error {
+	_, err := mq.conn.QueueSubscribe(queueName, "workers", func(msg *nats.Msg) {
 		handler(msg.Data)
 	})
 	return err
